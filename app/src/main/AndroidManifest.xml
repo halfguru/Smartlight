@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mete.myapplication">
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity
+            android:name=".SensortagActivity"
+            android:launchMode="singleInstance" />
+
+        <service
+            android:name=".BLEService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <!-- BEGIN - USERPOOL FOLDER -->
+        <activity
+            android:name="com.amazonaws.mobile.userpools.ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+        <activity
+            android:name="com.amazonaws.mobile.userpools.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+        <activity
+            android:name="com.amazonaws.mobile.userpools.MFAActivity"
+            android:label="@string/title_activity_mfa"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+        <activity
+            android:name="com.amazonaws.mobile.userpools.SignUpConfirmActivity"
+            android:label="@string/title_activity_sign_up_confirm"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+
+        <!-- END - USERPOOL FOLDER -->
+
+
+        <activity android:name=".UploadActivity" />
+        <activity android:name=".SignInActivity"
+            android:label="@string/title_activity_sign_in"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- BEGIN - FACEBOOK SIGN-IN -->
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+
+        <!-- END - FACEBOOK SIGN-IN -->
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+    </application>
+
+</manifest>

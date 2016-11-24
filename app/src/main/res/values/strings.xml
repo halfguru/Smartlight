@@ -1,0 +1,75 @@
+<resources>
+    <!-- CUSTOMIZE THESE FOR YOUR APP -->
+
+    <string name="app_name">ECSE 683 project</string>
+    <!-- Suffix after '-' must be the app package name as specified in the build.gradle file. This
+         is used by the com.amazonaws.mobile.downloader.query.DownloadQueueProvider class. -->
+    <string name="download_queue_provider_authority">com.amazonaws.mobile.downloader-com.amazon.mysampleapp</string>
+    <!-- This can be anything, but it should be unique to the app. -->
+    <string name="content_file_provider_authority">com.mysampleapp.fileprovider</string>
+    <string name="facebook_app_id">1269443229763844</string>
+
+
+    <string name="bluetooth_select_message">Click a bluetooth device to connect</string>
+    <string name="button_start_scan"></string>
+    <string name="ble_not_supported">ble_not_supported</string>
+
+    <string name="title_devices">Test title devices</string>
+    <string name="error_bluetooth_not_supported">BLE not supported</string>
+
+    <string name="manage_download">Manage downloads</string>
+    <string name="manage_upload">Manage uploads</string>
+    <string name="pause_all">Pause all</string>
+    <string name="cancel_all">Cancel all</string>
+    <string name="refreshing">Refreshing</string>
+    <string name="please_wait">Please wait</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="upload_file">Upload a file</string>
+    <string name="upload_image">Upload an image</string>
+
+    <string name="sign_up_header">Enter the following information to sign up.</string>
+    <string name="username_text">Username</string>
+    <string name="sign_in_password">Password</string>
+    <string name="given_name_text">Given name</string>
+    <string name="email_address_text">Email address</string>
+    <string name="phone_number_text">Phone number (+15551234567)</string>
+    <string name="title_activity_sign_in">ECSE 683 project</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="title_activity_forgot_password">Forgot Password</string>
+    <string name="title_activity_sign_up_confirm">Confirm Account</string>
+    <string name="title_activity_mfa">MFA Code</string>
+    <string name="sign_in_email">Email</string>
+    <string name="sign_in_new_account">Create New Account</string>
+    <string name="sign_in_forgot_password">Forgot Your Password?</string>
+    <string name="sign_in_or">or sign in with</string>
+    <string name="sign_in_username">Username/Phone Number (+15551234567)</string>
+    <string name="content_helper_error_title">No Content Viewer</string>
+    <string name="content_helper_error_no_app">No Viewing App exists for content type \'%s\'.</string>
+    <string name="content_dialog_ok">OK</string>
+    <string name="login_success">Login succeeded.</string>
+    <string name="login_failed">Login failed.</string>
+    <string name="password_change_success">Password change succeeded.</string>
+    <string name="password_change_failed">Password change failed.</string>
+    <string name="sign_up_confirm_code">Confirmation code</string>
+    <string name="sign_up_confirm_text">Confirm</string>
+    <string name="sign_up_confirm_code_sent">A confirmation code was sent.</string>
+    <string name="sign_up_confirm_enter_code">Please enter the code below to confirm your account.</string>
+    <string name="sign_up_confirm_title">Confirm your account</string>
+    <string name="sign_up_confirm_success">Sign up confirmation succeeded.</string>
+    <string name="sign_up_confirm_failed">Sign up confirmation failed.</string>
+    <string name="sign_up_failed">Sign up failed.</string>
+    <string name="sign_up_success">Sign up succeeded.</string>
+    <string name="forgot_password_header">Forgot your password?</string>
+    <string name="forgot_password_body">Set your new password with the verification code that was sent to you.</string>
+    <string name="forgot_password_input_code_hint">Verification code</string>
+    <string name="forgot_password_button_hint">Set password</string>
+    <string name="mfa_header">MFA verification is required to authenticate.</string>
+    <string name="mfa_code_sent_message">Code sent.</string>
+    <string name="verify_button_text">Verify</string>
+
+
+
+</resources>

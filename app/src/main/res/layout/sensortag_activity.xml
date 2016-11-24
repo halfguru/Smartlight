@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:text="Sensor Tag CC2650"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/sensorTagTitle" />
+
+    <TextView
+        android:text="The following page shows accelerometer information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sensorTagTitle"
+        android:layout_alignStart="@+id/sensorTagTitle"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView2" />
+
+    <TextView
+        android:text="x: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="67dp"
+        android:id="@+id/textView3" />
+
+    <TextView
+        android:text="z: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginTop="23dp"
+        android:id="@+id/textView5" />
+
+    <TextView
+        android:text="y: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginStart="61dp"
+        android:id="@+id/xReading" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignStart="@+id/xReading"
+        android:id="@+id/yReading" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignEnd="@+id/yReading"
+        android:id="@+id/zReading" />
+
+    <TextView
+        android:text="Accelerometer Readings:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:layout_above="@+id/xReading"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginBottom="19dp" />
+
+    <Button
+        android:text="Disconnect and Go Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/zReading"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:clickable="true"
+        android:onClick="onDisconnectClick"
+        android:id="@+id/disconnect" />
+
+    <Button
+        android:id="@+id/buttonUploadMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:padding="20dp"
+        android:text="@string/manage_upload"
+        android:layout_below="@+id/disconnect"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonDownloadMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:padding="20dp"
+        android:text="@string/manage_download"
+        android:layout_below="@+id/buttonUploadMain"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
