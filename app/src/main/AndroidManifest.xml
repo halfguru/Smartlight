@@ -23,9 +23,27 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleInstance">
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name=".SignInActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_sign_in">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleInstance"></activity>
+
+        <activity android:name=".UploadActivity" />
+
         <activity
             android:name=".SensortagActivity"
             android:launchMode="singleInstance" />
@@ -38,42 +56,22 @@
         <!-- BEGIN - USERPOOL FOLDER -->
         <activity
             android:name="com.amazonaws.mobile.userpools.ForgotPasswordActivity"
-            android:label="@string/title_activity_forgot_password"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            >
-        </activity>
+            android:label="@string/title_activity_forgot_password"></activity>
         <activity
             android:name="com.amazonaws.mobile.userpools.SignUpActivity"
-            android:label="@string/title_activity_sign_up"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            >
-        </activity>
+            android:label="@string/title_activity_sign_up"></activity>
         <activity
             android:name="com.amazonaws.mobile.userpools.MFAActivity"
-            android:label="@string/title_activity_mfa"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            >
-        </activity>
+            android:label="@string/title_activity_mfa"></activity>
         <activity
             android:name="com.amazonaws.mobile.userpools.SignUpConfirmActivity"
-            android:label="@string/title_activity_sign_up_confirm"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            >
-        </activity>
+            android:label="@string/title_activity_sign_up_confirm"></activity>
 
         <!-- END - USERPOOL FOLDER -->
-
-
-        <activity android:name=".UploadActivity" />
-        <activity android:name=".SignInActivity"
-            android:label="@string/title_activity_sign_in"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!-- BEGIN - FACEBOOK SIGN-IN -->
 
@@ -83,7 +81,9 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <!-- END - FACEBOOK SIGN-IN -->
 
