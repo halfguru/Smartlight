@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
@@ -30,10 +31,9 @@ import java.util.Date;
 
 public class SensortagActivity extends AppCompatActivity {
     private TextView xReading, yReading, zReading;
-    private Button disconnectButton;
-    private Button btnDownload;
-    private Button btnUpload;
+    private Button btnUpload, btnSensor;
     private boolean bleServiceConnected;
+    private boolean sensorToCloud;
     private Intent bleServiceIntent;
     BLEService bleService;
     public static final String SENSOR_TAG_ACCEL = "Accelerometer Values Received";
@@ -43,7 +43,6 @@ public class SensortagActivity extends AppCompatActivity {
     private TransferUtility transferUtility;
 
     LocalBroadcastManager bManagerSensortag;
-
     private BroadcastReceiver bReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -59,11 +58,15 @@ public class SensortagActivity extends AppCompatActivity {
                         xReading.setText(x + "Gs");
                         yReading.setText(y + "Gs");
                         zReading.setText(z + "Gs");
-                        accToFile[0] = Float.toString(x);
-                        accToFile[1] = Float.toString(y);
-                        accToFile[2] = Float.toString(z);
-                        for( int i = 0; i <= accToFile.length - 1; i++){
-                            writeToFile(accToFile[i]);
+                        accToFile[0] = "x: " + Float.toString(x);
+                        accToFile[1] = "y: " + Float.toString(y);
+                        accToFile[2] = "z: " + Float.toString(z);
+                        if (sensorToCloud == true){
+                            Log.e("TAG", "Sending to Amazon S3");
+                            for( int i = 0; i <= accToFile.length - 1; i++){
+                                writeToFile(accToFile[i]);
+                        }
+
                         }
                     }
                 });
@@ -79,13 +82,13 @@ public class SensortagActivity extends AppCompatActivity {
 
         // Initializes TransferUtility, always do this before using it.
         transferUtility = Util.getTransferUtility(this);
+        sensorToCloud = false;
 
         initUI();
 
         xReading = (TextView)findViewById(R.id.xReading);
         yReading = (TextView)findViewById(R.id.yReading);
         zReading = (TextView)findViewById(R.id.zReading);
-        disconnectButton = (Button)findViewById(R.id.disconnect);
 
         bManagerSensortag = LocalBroadcastManager.getInstance(this);
         IntentFilter intentFilter = new IntentFilter();
@@ -168,19 +171,26 @@ public class SensortagActivity extends AppCompatActivity {
         startActivity(moveToMainActivity);
     }
 
+
+
     private void initUI() {
-        btnDownload = (Button) findViewById(R.id.buttonDownloadMain);
         btnUpload = (Button) findViewById(R.id.buttonUploadMain);
-        /***
-        btnDownload.setOnClickListener(new View.OnClickListener() {
+        btnSensor = (Button) findViewById(R.id.buttonSensor);
+
+        btnSensor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(SensortagActivity.this, DownloadActivity.class);
-                startActivity(intent);
+                sensorToCloud = !sensorToCloud;
+                if (sensorToCloud == true){
+                    Toast.makeText(getApplicationContext(), "Uploading to S3 cloud",
+                            Toast.LENGTH_SHORT).show();
+                    btnSensor.setText("Stop S3 upload");
+                }
+                else{
+                    btnSensor.setText("Start S3 upload");
+                }
             }
         });
-         ***/
-
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

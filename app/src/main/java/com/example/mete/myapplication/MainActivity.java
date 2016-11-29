@@ -1,10 +1,6 @@
 package com.example.mete.myapplication;
 
 import android.Manifest;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattService;
-import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.DialogInterface;

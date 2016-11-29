@@ -17,7 +17,7 @@
     <string name="title_devices">Test title devices</string>
     <string name="error_bluetooth_not_supported">BLE not supported</string>
 
-    <string name="manage_download">Manage downloads</string>
+    <string name="manage_download">Start S3 upload</string>
     <string name="manage_upload">Manage uploads</string>
     <string name="pause_all">Pause all</string>
     <string name="cancel_all">Cancel all</string>
@@ -69,6 +69,12 @@
     <string name="mfa_header">MFA verification is required to authenticate.</string>
     <string name="mfa_code_sent_message">Code sent.</string>
     <string name="verify_button_text">Verify</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 
 </resources>

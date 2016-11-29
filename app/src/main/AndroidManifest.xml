@@ -21,7 +21,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -31,22 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignInActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_in">
-        </activity>
-
+            android:label="@string/title_activity_sign_in"></activity>
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleInstance"></activity>
-
+            android:name=".MainActivity" />
         <activity android:name=".UploadActivity" />
-
         <activity
-            android:name=".SensortagActivity"
-            android:launchMode="singleInstance" />
+            android:name=".SensortagActivity" />
 
         <service
             android:name=".BLEService"
@@ -57,21 +49,22 @@
         <activity
             android:name="com.amazonaws.mobile.userpools.ForgotPasswordActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_forgot_password"></activity>
+            android:label="@string/title_activity_forgot_password" />
         <activity
             android:name="com.amazonaws.mobile.userpools.SignUpActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_up"></activity>
+            android:label="@string/title_activity_sign_up" />
         <activity
             android:name="com.amazonaws.mobile.userpools.MFAActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_mfa"></activity>
+            android:label="@string/title_activity_mfa" />
         <activity
             android:name="com.amazonaws.mobile.userpools.SignUpConfirmActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_up_confirm"></activity>
+            android:label="@string/title_activity_sign_up_confirm" />
 
         <!-- END - USERPOOL FOLDER -->
+
 
         <!-- BEGIN - FACEBOOK SIGN-IN -->
 

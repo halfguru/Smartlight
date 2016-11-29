@@ -3,30 +3,67 @@ package com.example.mete.myapplication;
 
 import android.app.Activity;
         import android.content.Intent;
+        import android.graphics.PixelFormat;
         import android.os.Bundle;
-        import android.os.Handler;
+        import android.view.Window;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
 
 public class SplashActivity extends Activity {
 
-    /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
-
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Window window = getWindow();
+        window.setFormat(PixelFormat.RGBA_8888);
+    }
     /** Called when the activity is first created. */
+    Thread splashTread;
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        StartAnimations();
+    }
+    private void StartAnimations() {
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        anim.reset();
+        LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
+        l.clearAnimation();
+        l.startAnimation(anim);
 
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
-        new Handler().postDelayed(new Runnable(){
+        anim = AnimationUtils.loadAnimation(this, R.anim.translate);
+        anim.reset();
+        ImageView iv = (ImageView) findViewById(R.id.splash);
+        iv.clearAnimation();
+        iv.startAnimation(anim);
+
+        splashTread = new Thread() {
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this,SignInActivity.class);
-                SplashActivity.this.startActivity(mainIntent);
-                SplashActivity.this.finish();
+                try {
+                    int waited = 0;
+                    // Splash screen pause time
+                    while (waited < 3500) {
+                        sleep(100);
+                        waited += 100;
+                    }
+                    Intent intent = new Intent(SplashActivity.this,
+                            SignInActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    SplashActivity.this.finish();
+                } catch (InterruptedException e) {
+                    // do nothing
+                } finally {
+                    SplashActivity.this.finish();
+                }
+
             }
-        }, SPLASH_DISPLAY_LENGTH);
+        };
+        splashTread.start();
+
     }
+
 }
