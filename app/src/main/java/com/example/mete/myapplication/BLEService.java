@@ -82,7 +82,7 @@ public class BLEService extends Service {
 
     UUID_MOV_SERV = fromString("f000aa80-0451-4000-b000-000000000000"),
             UUID_MOV_DATA = fromString("f000aa81-0451-4000-b000-000000000000"),
-                UUID_MOV_NOTIF = fromString("00002902-0000-1000-8000-00805f9b34fb"),    //notif. Took forever to find this
+            UUID_MOV_NOTIF = fromString("00002902-0000-1000-8000-00805f9b34fb"),    //notif. Took forever to find this
             UUID_MOV_CONF = fromString("f000aa82-0451-4000-b000-000000000000"), // 0: disable, bit 0: enable x, bit 1: enable y, bit 2: enable z
             UUID_MOV_PERI = fromString("f000aa83-0451-4000-b000-000000000000"), // Period in tens of milliseconds
 
@@ -268,9 +268,9 @@ public class BLEService extends Service {
             if (characteristic.getUuid().equals(UUID_MOV_DATA)){
                 byte[] movValue = characteristic.getValue();
                 ByteBuffer movValueResults = ByteBuffer.wrap(movValue); //stored as big endian.
-                int rawX = movValueResults.getInt(6);   //retrieves 6&7
-                int rawY = movValueResults.getInt(8);   //retrieves 8&9
-                int rawZ = movValueResults.getInt(10);   //retrieves 10&11
+                int rawX = (int)(movValueResults.getShort(6));   //retrieves 6&7
+                int rawY = (int)(movValueResults.getShort(8));   //retrieves 8&9
+                int rawZ = (int)(movValueResults.getShort(10));   //retrieves 10&11
                 //Since we hardcoded the accuracy to 4G, conversion factor is as follows:
                 float xInGs = rawX  / (32768/4);
                 float yInGs = rawY  / (32768/4);
