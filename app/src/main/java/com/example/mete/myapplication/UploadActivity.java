@@ -30,6 +30,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.mobile.AWSConfiguration;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -77,6 +78,8 @@ public class UploadActivity extends ListActivity {
 
     // Which row in the UI is currently checked (if any)
     private int checkedIndex;
+
+    private AWSConfiguration sAWSConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,9 +329,11 @@ public class UploadActivity extends ListActivity {
             public void onClick(View v) {
                 // Make sure a transfer is selected
                 if (checkedIndex >= 0 && checkedIndex < observers.size()) {
-                    transferUtility.deleteTransferRecord(observers.get(checkedIndex).getId());
-                    observers.remove(checkedIndex);
-                    transferRecordMaps.remove(checkedIndex);
+                    for (int i = 0; i < observers.size(); i++) {
+                        transferUtility.deleteTransferRecord(observers.get(i).getId());
+                        observers.remove(i);
+                        transferRecordMaps.remove(i);
+                    }
                     checkedIndex = INDEX_NOT_CHECKED;
                     updateButtonAvailability();
                     updateList();
@@ -406,7 +411,7 @@ public class UploadActivity extends ListActivity {
             return;
         }
         File file = new File(filePath);
-        TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME, file.getName(),
+        TransferObserver observer = transferUtility.upload(sAWSConfiguration.AMAZON_S3_USER_FILES_BUCKET, file.getName(),
                 file);
         /*
          * Note that usually we set the transfer listener after initializing the

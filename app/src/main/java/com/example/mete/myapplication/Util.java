@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobile.AWSConfiguration;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
@@ -25,6 +26,7 @@ public class Util {
     private static AmazonS3Client sS3Client;
     private static CognitoCachingCredentialsProvider sCredProvider;
     private static TransferUtility sTransferUtility;
+    private static AWSConfiguration sAWSConfiguration;
 
     /**
      * Gets an instance of CognitoCachingCredentialsProvider which is
@@ -37,7 +39,7 @@ public class Util {
         if (sCredProvider == null) {
             sCredProvider = new CognitoCachingCredentialsProvider(
                     context.getApplicationContext(),
-                    Constants.COGNITO_POOL_ID,
+                    sAWSConfiguration.AMAZON_COGNITO_IDENTITY_POOL_ID,
                     Regions.US_EAST_1);
         }
         return sCredProvider;

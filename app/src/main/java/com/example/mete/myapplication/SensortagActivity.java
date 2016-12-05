@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.mobile.AWSConfiguration;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,6 +42,7 @@ public class SensortagActivity extends AppCompatActivity {
     private String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     // The TransferUtility is the primary class for managing transfer to S3
     private TransferUtility transferUtility;
+    private AWSConfiguration sAWSConfiguration;
 
     LocalBroadcastManager bManagerSensortag;
     private BroadcastReceiver bReceiver = new BroadcastReceiver() {
@@ -58,10 +60,10 @@ public class SensortagActivity extends AppCompatActivity {
                         xReading.setText(x + "Gs");
                         yReading.setText(y + "Gs");
                         zReading.setText(z + "Gs");
-                        accToFile[0] = "x: " + Float.toString(x);
-                        accToFile[1] = "y: " + Float.toString(y);
-                        accToFile[2] = "z: " + Float.toString(z);
-                        if (sensorToCloud == true){
+                            accToFile[0] = "x: " + Float.toString(x);
+                            accToFile[1] = "y: " + Float.toString(y);
+                            accToFile[2] = "z: " + Float.toString(z);
+                            if (sensorToCloud == true){
                             Log.e("TAG", "Sending to Amazon S3");
                             for( int i = 0; i <= accToFile.length - 1; i++){
                                 writeToFile(accToFile[i]);
@@ -182,11 +184,13 @@ public class SensortagActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 sensorToCloud = !sensorToCloud;
                 if (sensorToCloud == true){
+                    btnSensor.setTextColor(0xFF00FF00); //this is green color
                     Toast.makeText(getApplicationContext(), "Uploading to S3 cloud",
                             Toast.LENGTH_SHORT).show();
                     btnSensor.setText("Stop S3 upload");
                 }
                 else{
+                    btnSensor.setTextColor(0xFF000000); //this is black color
                     btnSensor.setText("Start S3 upload");
                 }
             }
@@ -212,7 +216,7 @@ public class SensortagActivity extends AppCompatActivity {
         File file = new File(folder, "config.txt");
 
         //Upload file to S3 user cloud
-        TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME, file.getName(), file);
+        TransferObserver observer = transferUtility.upload(sAWSConfiguration.AMAZON_S3_USER_FILES_BUCKET, file.getName(), file);
         try{
             if(!file.exists()){
                 Log.e("TAG","We had to make a new file.");
