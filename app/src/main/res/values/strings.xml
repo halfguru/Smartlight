@@ -12,6 +12,7 @@
 
     <string name="bluetooth_select_message">Click a bluetooth device to connect</string>
     <string name="button_start_scan"></string>
+    <string name="button_sign_out"></string>
     <string name="ble_not_supported">ble_not_supported</string>
 
     <string name="title_devices">Test title devices</string>

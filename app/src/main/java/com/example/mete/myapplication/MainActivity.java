@@ -30,6 +30,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 
+import com.amazonaws.mobile.AWSMobileClient;
+import com.amazonaws.mobile.user.IdentityManager;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
     BLEService bleService;
 
     private Button startScanButton;
+    private Button signOutButton;
     private ListView listViewOfDevices;
     private List<BluetoothDevice> pairedDevices;
     private ArrayList<String> mLeDevices;
@@ -57,6 +61,9 @@ public class MainActivity extends AppCompatActivity{
 
     private static final String SENSOR_TAG_NAME_1 = "SensorTag2";
     private static final String SENSOR_TAG_NAME_2 = "CC2650 SensorTag";
+
+    /** The identity manager used to keep track of the current user account. */
+    private IdentityManager identityManager;
 
     /** Broadcast receiver used to process and handle messages coming from service */
     //String to which it will respond
@@ -109,6 +116,13 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         Log.e("onCreate", "onCreate");
 
+        // Obtain a reference to the mobile client. It is created in the Application class,
+        // but in case a custom Application class is not used, we initialize it here if necessary.
+        AWSMobileClient.initializeMobileClientIfNecessary(this);
+        // Obtain a reference to the mobile client. It is created in the Application class.
+        final AWSMobileClient awsMobileClient = AWSMobileClient.defaultMobileClient();
+        // Obtain a reference to the identity manager.
+        identityManager = awsMobileClient.getIdentityManager();
 
         //SDK 23
         verifyStoragePermissions(this);
@@ -151,7 +165,9 @@ public class MainActivity extends AppCompatActivity{
 
         //Initialize scanning button
         startScanButton = (Button) findViewById(R.id.start_scan);
+        signOutButton = (Button) findViewById(R.id.signOut);
         startScanButton.setText("Click to Start Scanning");
+        signOutButton.setText("Sign out");
         scanningForDevices = false;
 
         //Initialize device list
@@ -341,6 +357,14 @@ public class MainActivity extends AppCompatActivity{
                     }
                     scanningForDevices = !scanningForDevices;   //flip boolean/state
                     break;
+                case (R.id.signOut):
+                        // The user is currently signed in with a provider. Sign out of that provider.
+                        identityManager.signOut();
+                        Intent moveToSignInActivity = new Intent(this, SignInActivity.class);
+                        startActivity(moveToSignInActivity);
+                        // Show the sign-in button and hide the sign-out button.
+
+
                 default:
                     break;
             }
