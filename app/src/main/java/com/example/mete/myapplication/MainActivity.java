@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity{
         }
         if (deviceName.equals(SENSOR_TAG_NAME_1) || deviceName.equals(SENSOR_TAG_NAME_2)){
             /** Start activity for displaying SensorTag information */
-            Intent moveToMainActivity = new Intent(this, SensortagActivity.class);
+            Intent moveToMainActivity = new Intent(this, Timer.class);
             moveToMainActivity.putExtra("SensorTag", device);
             startActivity(moveToMainActivity);
         }

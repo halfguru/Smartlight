@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.mete.myapplication.Timer">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:id="@+id/linearLayout">
+
+        <EditText
+            android:id="@+id/wakeText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sign_in_text_margin"
+            android:layout_marginRight="@dimen/sign_in_text_margin"
+            android:inputType="phone"
+            android:hint="Wake up time"
+            />
+        <EditText
+            android:id="@+id/sleepText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sign_in_text_margin"
+            android:layout_marginRight="@dimen/sign_in_text_margin"
+            android:inputType="phone"
+            android:hint="Sleep time"
+            />
+        <EditText
+            android:id="@+id/workstartText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sign_in_text_margin"
+            android:layout_marginRight="@dimen/sign_in_text_margin"
+            android:inputType="phone"
+            android:hint="Work start time"
+            />
+        <EditText
+            android:id="@+id/workstopText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/sign_in_text_margin"
+            android:layout_marginRight="@dimen/sign_in_text_margin"
+            android:inputType="phone"
+            android:hint="Work end time"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="@dimen/activity_button_text_size"
+            android:layout_alignParentStart="true"
+            android:text="send"
+            android:onClick="sendMessage"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/timer_select_message"
+        android:id="@+id/connectMessage"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout" />
+</RelativeLayout>

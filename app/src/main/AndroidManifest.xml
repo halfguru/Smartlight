@@ -33,12 +33,10 @@
         <activity
             android:name=".SignInActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_sign_in"></activity>
-        <activity
-            android:name=".MainActivity" />
+            android:label="@string/title_activity_sign_in" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".UploadActivity" />
-        <activity
-            android:name=".SensortagActivity" />
+        <activity android:name=".SensortagActivity" />
 
         <service
             android:name=".BLEService"
@@ -84,6 +82,14 @@
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
+        <activity
+            android:name=".Alarm.AlarmActivity"
+            android:label="@string/title_activity_alarm"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Timer"
+            android:label="@string/title_activity_timer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
