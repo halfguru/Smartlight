@@ -89,7 +89,8 @@
         <activity
             android:name=".Timer"
             android:label="@string/title_activity_timer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DisplayTimer"></activity>
     </application>
 
 </manifest>

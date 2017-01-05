@@ -10,6 +10,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="29dp"
         android:layout_marginTop="13dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/sensorTagTitle" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_below="@+id/sensorTagTitle"
         android:layout_alignStart="@+id/sensorTagTitle"
         android:layout_marginTop="13dp"
+
         android:id="@+id/textView2" />
 
     <TextView
@@ -88,25 +90,30 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_marginBottom="19dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/view4"
+        android:layout_alignBottom="@+id/textView9"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:text="Disconnect and Go Back"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/pauseCancelAllLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/zReading"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:onClick="onDisconnectClick"
-        android:id="@+id/disconnect" />
+        android:orientation="vertical"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp">
+
+
 
     <Button
         android:id="@+id/buttonUploadMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:padding="20dp"
         android:text="@string/manage_upload"
         android:layout_below="@+id/disconnect"
         android:layout_centerHorizontal="true"/>
@@ -116,21 +123,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="20dp"
         android:text="@string/manage_download"
-        android:layout_marginTop="11dp"
         android:layout_below="@+id/buttonUploadMain"
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:onClick="onUploadClick"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/view4"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignParentStart="true" />
+        <Button
+            android:text="Display Timers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/zReading"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="onTimerClick"
+            android:id="@+id/buttonTimer" />
+
+        <Button
+            android:text="Disconnect and Go Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/zReading"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:onClick="onDisconnectClick"
+            android:id="@+id/disconnect" />
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -17,14 +17,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Timer extends AppCompatActivity {
     // The TransferUtility is the primary class for managing transfer to S3
     private TransferUtility transferUtility;
     private AWSConfiguration sAWSConfiguration;
-    private String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     public final static String EXTRA_MESSAGE = "com.example.mete.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,7 @@ public class Timer extends AppCompatActivity {
             }
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(timeStamp.toString() + " " + data + "\n");
+            bufferedWriter.write(data + "\n");
             bufferedWriter.close();
 
             Log.e("TAG", "Writing to file");

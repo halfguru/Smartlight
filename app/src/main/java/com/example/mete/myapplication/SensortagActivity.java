@@ -32,7 +32,7 @@ import java.util.Date;
 
 public class SensortagActivity extends AppCompatActivity {
     private TextView xReading, yReading, zReading;
-    private Button btnUpload, btnSensor;
+    private Button btnUpload, btnSensor, btnTimer;
     private boolean bleServiceConnected;
     private boolean sensorToCloud;
     private Intent bleServiceIntent;
@@ -178,6 +178,7 @@ public class SensortagActivity extends AppCompatActivity {
     private void initUI() {
         btnUpload = (Button) findViewById(R.id.buttonUploadMain);
         btnSensor = (Button) findViewById(R.id.buttonSensor);
+        btnTimer = (Button) findViewById(R.id.buttonTimer);
 
         btnSensor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +200,13 @@ public class SensortagActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(SensortagActivity.this, UploadActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(SensortagActivity.this, DisplayTimer.class);
                 startActivity(intent);
             }
         });
