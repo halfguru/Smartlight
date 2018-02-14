@@ -10,10 +10,13 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class SensortagActivity extends AppCompatActivity {
+public class SensortagActivity extends Fragment {
     private TextView xReading, yReading, zReading;
     private Button btnUpload, btnSensor, btnTimer;
     private boolean bleServiceConnected;
@@ -43,7 +46,6 @@ public class SensortagActivity extends AppCompatActivity {
     // The TransferUtility is the primary class for managing transfer to S3
     private TransferUtility transferUtility;
     private AWSConfiguration sAWSConfiguration;
-
     LocalBroadcastManager bManagerSensortag;
     private BroadcastReceiver bReceiver = new BroadcastReceiver() {
         @Override
@@ -54,7 +56,7 @@ public class SensortagActivity extends AppCompatActivity {
                 final float y = (float)accelInfo.get("y");
                 final float z = (float)accelInfo.get("z");
 
-                runOnUiThread(new Runnable(){
+                getActivity().runOnUiThread(new Runnable(){
                     @Override
                     public void run(){
                         xReading.setText(x + "Gs");
@@ -75,33 +77,34 @@ public class SensortagActivity extends AppCompatActivity {
             }
         }
     };
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.sensortag_activity);
-        Log.e("onCreate", "onCreate");
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Initializes TransferUtility, always do this before using it.
-        transferUtility = Util.getTransferUtility(this);
+        transferUtility = Util.getTransferUtility(getActivity());
         sensorToCloud = false;
+        View rootView = inflater.inflate(R.layout.sensortag_activity, container, false);
 
-        initUI();
+        Thread displayUpdateThread = getUpdateStepDisplayThread();
+        displayUpdateThread.start();
+        bleServiceIntent = new Intent(getActivity(), BLEService.class);   //this should never be re-assigned
+        getActivity().bindService(bleServiceIntent, bleServiceConnection, Context.BIND_AUTO_CREATE);
+        bManagerSensortag = LocalBroadcastManager.getInstance(getActivity());
 
-        xReading = (TextView)findViewById(R.id.xReading);
-        yReading = (TextView)findViewById(R.id.yReading);
-        zReading = (TextView)findViewById(R.id.zReading);
 
-        bManagerSensortag = LocalBroadcastManager.getInstance(this);
+        return rootView;
+
+    }
+
+    public void onViewCreated(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        xReading = (TextView)getView().findViewById(R.id.xReading);
+        yReading = (TextView)getView().findViewById(R.id.yReading);
+        zReading = (TextView)getView().findViewById(R.id.zReading);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SENSOR_TAG_ACCEL);
         bManagerSensortag.registerReceiver(bReceiver, intentFilter);
 
-        Thread displayUpdateThread = getUpdateStepDisplayThread();
-        displayUpdateThread.start();
 
-        bleServiceIntent = new Intent(this, BLEService.class);   //this should never be re-assigned
-        bindService(bleServiceIntent, bleServiceConnection, Context.BIND_AUTO_CREATE);
     }
     /*
      * The function below implements the onResume callback for the activity
@@ -109,9 +112,9 @@ public class SensortagActivity extends AppCompatActivity {
      * @return void
      */
     @Override
-    protected void onResume() {
-        bindService(bleServiceIntent, bleServiceConnection, 0);
+    public void onResume() {
         super.onResume();
+        getActivity().bindService(bleServiceIntent, bleServiceConnection, 0);
         Log.e("onResume", "onResume");
     }
     /*
@@ -120,16 +123,15 @@ public class SensortagActivity extends AppCompatActivity {
      * @return void
      */
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
-
         //unbind from service
         if (bleServiceConnected) {
             BluetoothAdapter bleAdapter = bleService.getBluetoothAdapter();
             if (bleAdapter != null && bleAdapter.isEnabled()) {
                 bleService.runBLEScan(false);
             }
-            unbindService(bleServiceConnection);
+            getActivity().unbindService(bleServiceConnection);
             bleServiceConnected = false;
         }
     }
@@ -140,14 +142,14 @@ public class SensortagActivity extends AppCompatActivity {
      * @return void
      */
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         Log.e("onDestroy", "onDestroy");
         if (bleService.getBluetoothGatt() != null) {
             bleService.disconectDevice();
         }
         bManagerSensortag.unregisterReceiver(bReceiver);
-        stopService(bleServiceIntent);
+        getActivity().stopService(bleServiceIntent);
     }
 
     protected ServiceConnection bleServiceConnection = new ServiceConnection() {
@@ -169,47 +171,8 @@ public class SensortagActivity extends AppCompatActivity {
 
     public void onDisconnectClick(View v){
         bleService.disconectDevice();
-        Intent moveToMainActivity = new Intent(this, MainActivity.class);
+        Intent moveToMainActivity = new Intent(getActivity(), MainActivity.class);
         startActivity(moveToMainActivity);
-    }
-
-
-
-    private void initUI() {
-        btnUpload = (Button) findViewById(R.id.buttonUploadMain);
-        btnSensor = (Button) findViewById(R.id.buttonSensor);
-        btnTimer = (Button) findViewById(R.id.buttonTimer);
-
-        btnSensor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                sensorToCloud = !sensorToCloud;
-                if (sensorToCloud == true){
-                    btnSensor.setTextColor(0xFF00FF00); //this is green color
-                    Toast.makeText(getApplicationContext(), "Uploading to S3 cloud",
-                            Toast.LENGTH_SHORT).show();
-                    btnSensor.setText("Stop S3 upload");
-                }
-                else{
-                    btnSensor.setTextColor(0xFF000000); //this is black color
-                    btnSensor.setText("Start S3 upload");
-                }
-            }
-        });
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(SensortagActivity.this, UploadActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnTimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent(SensortagActivity.this, DisplayTimer.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void writeToFile(String data) {
@@ -265,7 +228,7 @@ public class SensortagActivity extends AppCompatActivity {
                 try {
                     while (!isInterrupted()){
                         Thread.sleep(250);
-                        runOnUiThread(new Runnable(){
+                        getActivity().runOnUiThread(new Runnable(){
                             @Override
                             public void run(){
                                 //Include logic to set the fields

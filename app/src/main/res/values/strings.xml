@@ -20,6 +20,12 @@
     <string name="title_devices">Test title devices</string>
     <string name="error_bluetooth_not_supported">BLE not supported</string>
 
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect Bluetooth</item>
+        <item>Sensortag</item>
+        <item>Set up timer</item>
+    </string-array>
+
     <string name="manage_download">Start S3 upload</string>
     <string name="manage_upload">Manage uploads</string>
     <string name="pause_all">Pause all</string>
@@ -80,6 +86,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="title_activity_timer">Timer</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 
 
 </resources>

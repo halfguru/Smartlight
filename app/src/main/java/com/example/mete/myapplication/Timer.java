@@ -34,7 +34,7 @@ public class Timer extends AppCompatActivity {
     /** Called when the user clicks the Send button */
     public void sendMessage(View view) {
 
-        Intent intent = new Intent(this, SensortagActivity.class);
+        Intent intent = new Intent(this, NavigationDrawer.class);
         EditText editText = (EditText) findViewById(R.id.wakeText);
         EditText editText2 = (EditText) findViewById(R.id.sleepText);
         EditText editText3 = (EditText) findViewById(R.id.workstartText);
